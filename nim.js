@@ -20,7 +20,11 @@ $(function() {
   var chipsTakenThisTurn = 0;
   var playerOneName = '';
   var playerTwoName = '';
+
+  // A string representing the html for a chip
   var chipHTML = '<div class="chip"></div>';
+
+  // Variables that point to different DOM elements
   var chipContainer = $('#chips');
   var playerOneChipsContainer = $('#player-one-chips');
   var playerTwoChipsContainer = $('#player-two-chips');
@@ -37,48 +41,58 @@ $(function() {
 // ACTIONS
 //*****************
 
-  var renderGame = function() {
+  function renderGame() {
     // First, draw all the chips into the right containers
-    $(chipContainer).html();
-    $(playerOneChipsContainer).html();
-    $(playerTwoChipsContainer).html();
-    $(chipContainer).append(chipHTML);
-    $(playerOneChipsContainer).append(chipHTML);
-    $(playerTwoChipsContainer).append(chipHTML);
+    chipContainer.html("");
+    playerOneChipsContainer.html("");
+    playerTwoChipsContainer.html("");
+    for (var i=0; i<chips; i++) {
+      chipContainer.append(chipHTML);
+    };
+    for (var i=0; i<playerOneChips; i++) {
+      playerOneChipsContainer.append(chipHTML);
+    };
+    for (var i=0; i<playerTwoChips; i++) {
+      playerTwoChipsContainer.append(chipHTML);
+    };
     
     // Show/Hide the appropriate action buttons
-    $(currentPlayer).toggle();
+    if (currentPlayer === 1) { //// why not toggle?????
+      playerOneOptions.css("visibility", "visible"); 
+      playerTwoOptions.css("visibility", "hidden");  
+    } else {
+      playerOneOptions.css("visibility", "hidden"); 
+      playerTwoOptions.css("visibility", "visible");  
+    }
 
     // Show the name of each player
-    $(playerOneName).html(playerOne);
-    $(playerTwoName).html(playerTwo);
+    playerOneName.html(playerOne);
+    playerTwoName.html(playerTwo);
+  };
 
-***************************
-
-  var takeChip = function(){
-    var message = ("You can't take any more chips!")
-    $(chipsTakenThisTurn == 3).alert(message);
-
-    }
-    chips--;
-    chipsTakenThisTurn++;
+    function takeChip() {
+      if (chipsTakenThisTurn === 3) {
+        alert("you can't take any more chips!");
+        return;
+      }
+      chips--;
+      chipsTakenThisTurn++;
     
-    if (currentPlayer == 1) {
+    if (currentPlayer === 1) {
       playerOneChips++;
     } else {
       playerTwoChips++;
     }
 
-    if (chips == 0) {
+    if (chips === 0) {
       alert("Game Over!");
       resetGame();
     }
-
     renderGame();
   }
 
   function pass() {
-    if (chipsTakenThisTurn == 0) {
+    if (chipsTakenThisTurn === 0) {
       alert('hey, you need to take at least one');
       return;
     }
@@ -103,22 +117,23 @@ $(function() {
   //***********************
   //  KICKING IT ALL OFF
   //***********************
-  playerOneTake.onclick = function () {
+
+  $(playerOneTake).click(function() {
     takeChip();
-  }
+  });
 
-  playerTwoTake.onclick = function() {
+  $(playerTwoTake).click(function() {
     takeChip();
-  }
+  });
 
-  playerOnePass.onclick = function() {
+  $(playerOnePass).click(function() {
     pass();
-  }
+  });
 
-  playerTwoPass.onclick = function() {
+  $(playerTwoPass).click(function() {
     pass();
-  }
-
-
+  });
 
   resetGame();
+
+});
