@@ -118,7 +118,7 @@ $(function() {
   //  KICKING IT ALL OFF
   //***********************
 
-  $(playerOneTake).click(function() {
+  $(playerOneTake).click(function() {   // on("click") ????
     takeChip();
   });
 
