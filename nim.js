@@ -1,13 +1,9 @@
 /*
 1) Add the<script> tag that loads in jQuery from code.jquery.com
-
 2) Modify the DOM element variables in the STATE section to be jQuery elements
-
 3) Update the renderGame() function to use jQuery
-
 4) Rewrite the onclick methods in the style of jQuery
 */
-
 
 //***************
 //  STATE
